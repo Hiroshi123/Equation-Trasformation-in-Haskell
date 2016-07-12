@@ -17,11 +17,11 @@ only for equation containing addition and subtraction which has just one variabl
 
 ##Process
 
-String input
-1. List of Haskell Data type
-2. Division of left side of to equal sign and right side of it
-3. Making a Tree
-4. calculation by pattern matching 
+1. String input
+2. List of Haskell Data type
+3. Division of left side of to equal sign and right side of it
+4. Making a Tree
+5. calculation by pattern matching 
 * removing branch -> simple calculation
 * inseting branch -> transposition
 
