@@ -23,7 +23,13 @@ only for equation containing addition and subtraction which has just one variabl
 4. Making a Tree
 5. calculation by pattern matching 
 * removing branch -> simple calculation
-* inseting branch -> transposition
+* if it contains variable on either leaf
+1. inversion :: (subtraction -> addition)
+2. commutativity (addition,multiplication) -> branch exchange, rotation
+3. associativity (addition,multiplication) -> rotation
+4. distribution  (clause which has multiplication & addition) -> rotation & insertion
+
+6. finally : inseting branch -> transposition
 
 note 
 * would not work out in multiplication so far...
