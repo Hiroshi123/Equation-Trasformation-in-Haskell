@@ -17,7 +17,7 @@ only for equation containing addition and subtraction which has just one variabl
 
 ##Process
 
-1. String input
+1. String input (Polish Notation)
 2. List of Haskell Data type
 3. Division of left side of to equal sign and right side of it
 4. Making a Tree
@@ -33,6 +33,6 @@ only for equation containing addition and subtraction which has just one variabl
 4. distribution  (clause which has multiplication & addition) -> rotation & insertion
 
 note 
-* would not work out in multiplication so far...
 * I am a Haskell beginner -> No monad, a lot of ()
+* suppose to have web interface.
 * Day by Day Updated
