@@ -27,10 +27,32 @@ only for equation containing addition and subtraction which has just one variabl
 
 ##Operation Details (when it contains variable on either leaf)
 #### from priority higher to lower
-1. inversion :: (subtraction -> addition)
-2. commutativity (addition,multiplication) -> branch exchange, rotation
-3. associativity (addition,multiplication) -> rotation
-4. distribution  (clause which has multiplication & addition) -> rotation & insertion
+1. inversion :: (subtraction -> addition,division->multiplication)
+2. target term selection :: which term is aimed to be merged 
+3. commutativity (addition,multiplication) -> branch exchange, rotation
+4. associativity (addition,multiplication) -> rotation
+5. distribution  (clause which has multiplication & addition) -> rotation & insertion
+
+##target term selection
+* e.g. given (3 + x) + 4   = 10, there are three terms in which two constant terms, namely 3 and 4. They need to be merged.
+* e.g. given (x + 2) + 2*x = 10, there are three terms in which two terms which shares same degree, namely x and 2*x. They need to be merged.
+* e.g. given (x + y) + 4   = 10, there are three terms in which no terms shared same degree. 
+
+
+##commutativity
+#### character
+* order of terms is changed
+* work under two items in between <+> || <x>
+#### example
+* 4+(x+3) -> 4+(3+x) :: given target which should be merged is 3
+
+##associativity (order of term is not changed works only in two addition, or two multiplication)
+#### character
+* order of terms is not changed!
+* work under three items in between 1st element  <+> 2nd <+> 3rd || 1st <*> 2nd <*> 3rd
+#### example
+* 4+(3+x) -> (4+3)+x) :: given target which should be merged is 3
+
 
 note 
 * I am a Haskell beginner -> No monad, a lot of ()
