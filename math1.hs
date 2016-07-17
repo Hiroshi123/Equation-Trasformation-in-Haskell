@@ -38,10 +38,10 @@ main = do
   
 data EITHER = LEFT | RIGHT deriving (Show)
 
-
 data Item = Equ | Add | Sub | Mul | Div | Rpa | Lpa | Var String | Num (Int,Int) | End  deriving (Eq, Show)
 
 data Tree a = L a | N a (Tree a) (Tree a) deriving (Eq,Show)
+
 
 class MyMath where
 
@@ -102,10 +102,19 @@ instance MyMath where
   read_expr (')':s) = read_expr s  --Rpa : read_expr s
   read_expr ('=':s) = Equ : read_expr s
   read_expr ('X':s) = Var "X" :read_expr s
+  read_expr ('Y':s) = Var "Y" :read_expr s
+  read_expr ('Z':s) = Var "Z" :read_expr s
+  read_expr ('a':s) = Var "a" :read_expr s
+  read_expr ('b':s) = Var "b" :read_expr s
+  read_expr ('c':s) = Var "c" :read_expr s
+  read_expr ('d':s) = Var "d" :read_expr s
+  
+  
   read_expr xs =
     case reads xs of
       [] -> error "read_expr error"
       [(x, xs')] -> Num (x,1) : read_expr xs'
+      
       
   toString' []      = ""
   toString' (Add:t) = (++) " ( + " $ toString' t

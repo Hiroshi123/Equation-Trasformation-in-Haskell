@@ -35,6 +35,8 @@ class OperationClass where
   
   traverse' :: Tree Item -> String
 
+  
+  
   --getCoefficient :: Tree Item -> String
   
 instance OperationClass where
@@ -184,4 +186,79 @@ instance OperationClass where
 --  getCoefficient (L (Var a)) =  a
 --  getCoefficient (L (Num a)) = "0"
 
+  
+
+getAllItems :: Tree Item -> [String]
+
+getAllItems (N Mul (L (Num b)) c) =  getAllItems c
+getAllItems (N Mul (L (Var b)) c) =  [ b ++ head (getAllItems c) ]
+
+
+getAllItems (N Add b c) = do
+  --let s = filter (\x-> x == head cc) bb
+  --case s 
+  bb ++ cc
+  where bb = getAllItems b
+        cc = getAllItems c
+        
+        
+getAllItems (L (Var a)) =  [a]
+getAllItems (L (Num a)) = ["0"]
+
+getItem :: Tree Item -> String
+getItem (N Mul (L (Num b)) c) =  getItem c
+getItem (N Mul (L (Var b)) c) =  b ++ getItem c
+getItem (L (Var a)) =  a
+getItem (L (Num a)) = "0"
+
+getItem _ = ""
+
+getCoefficient :: Tree Item -> (Int,Int)
+
+getCoefficient (L (Var a)) = (1,1)
+getCoefficient (L (Num a)) = a
+getCoefficient (N Mul (L (Num a)) (L (Var b))) = a
+
+
+com :: Tree Item -> String -> Maybe (Tree Item)
+
+com (N Add a b) q
+  | (not (aa == "")) && (not (aa == "0")) && (aa == bb) = Just (N Mul (L (Num (add (getCoefficient a) (getCoefficient b)))) (L (Var aa)) ) 
+  | (aa == "0") && (aa == bb) = Just (L (Num (add (getCoefficient a) (getCoefficient b))))
+  where aa = getItem a
+        bb = getItem b
+        
+--commutative
+com (N Add ( L a ) b ) q
+  | q == getItem b = Just (N Add b (L a))
+
+--commutative
+com (N Add (N Mul a b) c ) q
+  | q == getItem c = Just (N Add c (N Mul a b))
+  
+  
+--associative
+com (N Add (N Add a b) c ) q
+  | q == getItem c = Just (N Add a (N Add b c))
+  
+--associative
+com (N Add a (N Add b c)) q
+  | (q == getItem b) && (not (q == getItem c))  = Just (N Add (N Add a b) c)
+  
+  
+com (L a) q = Nothing
+
+--deep
+
+com (N a b c) q
+  | q `elem` d = do
+      let (Just g) = com c q
+      Just (N a b g)
+      
+  | otherwise  = do
+      let e = com b q
+      case e of
+        Nothing -> Nothing
+        Just g  -> Just (N a g c)  --if the element is not on the right side of tree, you will switch to left side.        
+  where d = getAllItems c
   
